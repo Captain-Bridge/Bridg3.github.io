@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="Deep Stone Crypt">
 <meta property="og:description" content="Welcome to My Blog! This is my first Blog in the strictly speaking. You could find me here: QQ:1147871868    steam  Bilibili! 第四步：释放同胞!今天白天满课，索然无味。我是怎么也寻思不明白为什么人机交互设计这东西要给我们开，人机交互不应该是UI相关甚至是美术相关的东西吗，我">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg">
-<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/before.jpg">
-<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/after.jpg">
-<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/archiveBlock.jpg">
+<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg">
+<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/before.jpg">
+<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/after.jpg">
+<meta property="og:image" content="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/archiveBlock.jpg">
 <meta property="article:published_time" content="2021-09-07T11:32:12.000Z">
 <meta property="article:modified_time" content="2021-09-11T07:19:37.516Z">
 <meta property="article:author" content="Remember me">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://captain-bridge.github.io/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg">
+<meta name="twitter:image" content="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg">
 
 <link rel="canonical" href="https://captain-bridge.github.io/Bridg3.github.io/2021/09/07/2021-9-7/">
 
@@ -238,12 +238,12 @@
 
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这道题看起来字很多，巴拉巴拉一堆，又是x又是k，实际上读懂了以后并不难。首先是需要建造一个建筑，这个建筑有N层，每层都有相同的房间数(可以想象成一个蜂巢，或者说是一座塔，将每层的房间都竖向对齐有助于抽象理解)。每个房间有一个带有数字牌子，而且还有【可能】有一个楼梯。<br>需要做的就是模拟一遍登顶的过程，登顶期间有一定的规则。规则就是，一开始会给你一个数字，然后从一楼对应数字的房间进去作为起点，而起点房间中的数字代表着需要寻找从当前房间开始你碰到的第X个楼梯往上走，同时记录每上一层进入的第一个房间的数字并将其求和取模即可。</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>这道题个人感觉确实没什么特殊的技巧，就只需要简单粗暴的模拟每一层就可以了。最初我的想法是把每个房间抽象成为一个room对象，每层的房间就是一个ArrayList<room>类型的容器，整个建筑则是ArrayList&lt;ArrayList<room>&gt;就可以了。而后就是数据的录入，还有求解函数的算法。求解函数里面我用了几个变量来记录当前房间(用作遍历索引同时可以在往上攀登一层的时候保存当前房间的位置)，目标楼梯数(也就是第一次进入本层的时候房间中的数字)，已经经过的楼梯数(一开始这个变量的变化还用了if判断，后来看题解发现因为是否有楼梯是用1和0来进行保存的，所以可以直接将这个加到变量中，有则+1，没有+0)。<br>因为逻辑比较简单，也没有用太久时间就写完了。<br>可惜提交以后的结果是全部RE。</room></room></p>
-<h3 id="第一次RE的原因"><a href="#第一次RE的原因" class="headerlink" title="第一次RE的原因"></a>第一次RE的原因</h3><p>一开始的时候并没有用任何的优化，直接就是暴力循环。后来参观了一下题解发现，有可能房间里面的数字会过大，导致很多次无用的循环。至于解决方案很简单，在每一层刚到的时候对本层总的楼梯数进行一次统计，然后把目标楼梯数进行取模运算就可以了(周期性)。这个过程中题解提到的错误我基本全都犯了，统计失误导致数组越界，整数倍取模结果为0没有考虑得当这种。但是终归还是比较好解决的问题。<br>优化了以后再提交，结果还是全部RE<br><img src="/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg" alt="究竟是为什么阿西巴"></p>
+<h3 id="第一次RE的原因"><a href="#第一次RE的原因" class="headerlink" title="第一次RE的原因"></a>第一次RE的原因</h3><p>一开始的时候并没有用任何的优化，直接就是暴力循环。后来参观了一下题解发现，有可能房间里面的数字会过大，导致很多次无用的循环。至于解决方案很简单，在每一层刚到的时候对本层总的楼梯数进行一次统计，然后把目标楼梯数进行取模运算就可以了(周期性)。这个过程中题解提到的错误我基本全都犯了，统计失误导致数组越界，整数倍取模结果为0没有考虑得当这种。但是终归还是比较好解决的问题。<br>优化了以后再提交，结果还是全部RE<br><img src="/Bridg3.github.io/2021/09/07/2021-9-7/Why.jpg" alt="究竟是为什么阿西巴"></p>
 <h3 id="第二次RE的原因"><a href="#第二次RE的原因" class="headerlink" title="第二次RE的原因"></a>第二次RE的原因</h3><p>这一次RE我实在是找不到任何的原因了，我不断地尝试着去进一步优化代码，甚至于舍弃了新建类和ArrayList改成了直接用二维数组来进行数据结构的组织，逻辑部分直接复制了一个C语言的题解，改了对应的变量，但是结果依旧是全部RE。我去找了计算代码运行时间的代码加了进去，发现其实运行时间不过几十毫秒，完完全全达不到RE的程度。十分无法理解为什么这道题会RE，也许是因为Java语言的原因。我在提交记录里面找到了最近一次用Java提交这道题通过的老哥，发了私信求教了一波，希望能收到回信。<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/show/350540">附上我在讨论区留的求教帖，如果有哪位大佬路过看到了指点一下那肯定是不胜荣幸</a></p>
 <h2 id="学到了什么"><a href="#学到了什么" class="headerlink" title="学到了什么"></a>学到了什么</h2><p>今天学到的东西比昨天比起来还要多。<br>首先是找到了以前大一那会正经写代码的感觉，大二一年瞎混真的是没感觉了都。<br>第二是复习了一下本来没怎么学明白的ArrayList的用法(虽然被优化掉了)，因为跟容器相关，当时听的昏昏欲睡，就这样了。<br>最后是洛谷这道题，折磨是真折磨，但是学到的思想还是挺重要的，在明显有周期性的遍历时，适当使用模运算可以大幅优化运行效率，这一点还是挺重要的吧。<br>写完这篇博客以后因为才八点左右，所以又去试着学了一点关于hexo的东西，你可以发现不仅我在这一篇博客里面增加了图片，而且这张图片还可以放大。这里是直接去下载了fancybox插件完成的。说实话，因为这些插件的存在，甚至让我产生了做网页不过如此的错觉。不过我也知道，强的不是用插件的人，制作插件的人才是真的大神。就是以后要养成用hit Bash创建博客的好习惯了，不能天天复制以前的博客来新建了。<br>去主页看一下吧，我给每一篇博客都做了显示全文按钮，这样的话主页就不会有一堆我的碎碎念来乱眼睛了(虽然还是有一部分，不过如果这部分都没有了要怎么区分各篇博客呢)。说是我做的，实际上只需要在想要隐藏的部分加上这样一行就可以了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
 <p>真的，比想象中的要简单太多了。</p>
-<h2 id="九点半加更"><a href="#九点半加更" class="headerlink" title="九点半加更"></a>九点半加更</h2><h3 id="归档"><a href="#归档" class="headerlink" title="归档"></a>归档</h3><p>有一说一我真的发现写代码，研究这些东西令我着迷了，最近对这个东西提起了兴趣以后(才不是因为到了大三开始为毕业而焦虑)，感觉有一种痴迷的感觉了，忽然想起来曾经的我说我生而为此，那会有一定程度是为高考失利而找借口，现在我会努力的。<br>这里修改的东西并不是什么显眼的东西，修改了归档上面的一句话而已，先上效果图<br><img src="/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/before.jpg" alt="修改前"><img src="/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/after.jpg" alt="修改后"><br>一开始按照之前的经验直接去百度找，结果发现大家好像对归档这个东西没什么兴趣。偶尔也能找到几个修改归档界面的前辈的博客，但是他们用的方式好像是直接用一个完全自定义的新页面去替代那个归档页面。但是兄弟不会Html跟js这种东西咋整。<br>于是我就又找了半天，最后在知乎一个老哥的分享里面找到了一个相关的文件：<br>Blog\themes\next\layout\archive.swig<br>archive就是归档，里面是这样的：<br><img src="/Bridg3.github.io/Bridg3.github.io/2021/09/07/2021-9-7/archiveBlock.jpg" alt="archive.swig"><br>终于找到了在渲染后的html文件里面跟归档相关的部分：</p>
+<h2 id="九点半加更"><a href="#九点半加更" class="headerlink" title="九点半加更"></a>九点半加更</h2><h3 id="归档"><a href="#归档" class="headerlink" title="归档"></a>归档</h3><p>有一说一我真的发现写代码，研究这些东西令我着迷了，最近对这个东西提起了兴趣以后(才不是因为到了大三开始为毕业而焦虑)，感觉有一种痴迷的感觉了，忽然想起来曾经的我说我生而为此，那会有一定程度是为高考失利而找借口，现在我会努力的。<br>这里修改的东西并不是什么显眼的东西，修改了归档上面的一句话而已，先上效果图<br><img src="/Bridg3.github.io/2021/09/07/2021-9-7/before.jpg" alt="修改前"><img src="/Bridg3.github.io/2021/09/07/2021-9-7/after.jpg" alt="修改后"><br>一开始按照之前的经验直接去百度找，结果发现大家好像对归档这个东西没什么兴趣。偶尔也能找到几个修改归档界面的前辈的博客，但是他们用的方式好像是直接用一个完全自定义的新页面去替代那个归档页面。但是兄弟不会Html跟js这种东西咋整。<br>于是我就又找了半天，最后在知乎一个老哥的分享里面找到了一个相关的文件：<br>Blog\themes\next\layout\archive.swig<br>archive就是归档，里面是这样的：<br><img src="/Bridg3.github.io/2021/09/07/2021-9-7/archiveBlock.jpg" alt="archive.swig"><br>终于找到了在渲染后的html文件里面跟归档相关的部分：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class = &quot;collection-header&quot;&gt;.....&lt;/span&gt;</span><br></pre></td></tr></table></figure>
 <p>修改了以后再渲染一次就成了。</p>
 <p>有些东西没有人能帮你做，告诉你怎么办，怎么做，网络其实也并不是万能的。</p>
@@ -267,8 +267,8 @@
       <i class="fa fa-chevron-left"></i> 2021/9/6 阴 今天其实搞了不少东西.
     </a></div>
       <div class="post-nav-item">
-    <a href="/Bridg3.github.io/2021/09/11/2021-9-11/" rel="next" title="2021/9/11 身体走得太快，灵魂就跟不上了">
-      2021/9/11 身体走得太快，灵魂就跟不上了 <i class="fa fa-chevron-right"></i>
+    <a href="/Bridg3.github.io/2021/09/11/2021-9-11/" rel="next" title="2021/9/11">
+      2021/9/11 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
